@@ -1,20 +1,64 @@
 import java.util.Scanner
 
-fun main() {
-    var input = Scanner(System.`in`)
 
-    var num = input.nextInt()
 
-    var rn = 0
 
-    while (num > 0) {
+    fun firstCharIndex(str:String):Int{
+        var firstCharPos = 0
+        while (str[firstCharPos] == ' ') {
+            firstCharPos++
 
-        val r = num % 10
-        num = num / 10
-        rn = rn * 10 + r
+        }
+        return firstCharPos
     }
 
-    println("$rn")
+fun lastCharIndex(str:String) : Int {
+    var lastCharPos = str.length-1
+    while (str[lastCharPos] == ' '){
+
+        lastCharPos--
+    }
+    return lastCharPos
 
 }
+
+
+    fun trimSpace(str: String): String {
+        var newStr = ""
+        val firstCharPos = firstCharIndex(str)
+        return if (str[0] == ' ') {
+            for (i in firstCharPos until str.length) {
+                newStr += str[i].toString()
+            }
+            newStr
+        } else {
+            str
+        }
+    }
+    fun wordCount(str: String): Int {
+        var counter = 0
+        var preSpace = false
+        for (char in str) {
+            preSpace = if (char == ' ') {
+                if (!preSpace) counter++
+                true
+            } else {
+                false
+            }
+        }
+        counter++
+        return counter
+    }
+    fun main() {
+        val scn = Scanner(System.`in`)
+        print("Put your article: ")
+        val article = scn.nextLine()
+        val afterTrim = trimSpace(article)
+        println("After count : $afterTrim")
+        val word = wordCount(afterTrim)
+
+        println("Total $word words in your article")
+    }
+
+
 
